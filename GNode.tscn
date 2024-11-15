@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://br8odp5wrtu6x"]
+
+[ext_resource type="Script" path="res://GNode.gd" id="1_d305o"]
+[ext_resource type="Texture2D" uid="uid://ss67nlus1w8g" path="res://icon.svg" id="2_rfpmd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ncjd3"]
+radius = 85.3756
+
+[node name="GNode" type="Node2D"]
+script = ExtResource("1_d305o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_rfpmd")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ncjd3")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_mouse_over" binds= [true]]
+[connection signal="mouse_exited" from="Area2D" to="." method="_mouse_over" binds= [false]]

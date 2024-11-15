@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://jjvih8gbeux3"]
+
+[ext_resource type="Script" path="res://main_window.gd" id="1_ktm31"]
+[ext_resource type="Script" path="res://Graph.gd" id="2_1mehc"]
+
+[node name="MainWindow" type="Node2D"]
+script = ExtResource("1_ktm31")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.3, 0.3)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="ModeGridContainer" type="GridContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 60.0
+offset_bottom = 76.0
+
+[node name="btnTemp" type="Button" parent="CanvasLayer/Control/ModeGridContainer"]
+layout_mode = 2
+text = "TEMP"
+
+[node name="Graph" type="Node2D" parent="."]
+script = ExtResource("2_1mehc")
+
+[connection signal="pressed" from="CanvasLayer/Control/ModeGridContainer/btnTemp" to="." method="_on_btn_temp_pressed"]
