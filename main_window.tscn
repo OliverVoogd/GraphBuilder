@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://jjvih8gbeux3"]
+[gd_scene load_steps=4 format=3 uid="uid://jjvih8gbeux3"]
 
 [ext_resource type="Script" path="res://main_window.gd" id="1_ktm31"]
-[ext_resource type="Script" path="res://Graph.gd" id="2_1mehc"]
+[ext_resource type="Script" path="res://Graph/Graph.gd" id="2_1mehc"]
+[ext_resource type="Resource" uid="uid://dm0e8j2rrprne" path="res://Graph/GData.tres" id="3_g8o3g"]
 
 [node name="MainWindow" type="Node2D"]
 script = ExtResource("1_ktm31")
@@ -28,5 +29,6 @@ text = "TEMP"
 
 [node name="Graph" type="Node2D" parent="."]
 script = ExtResource("2_1mehc")
+graph_data = ExtResource("3_g8o3g")
 
 [connection signal="pressed" from="CanvasLayer/Control/ModeGridContainer/btnTemp" to="." method="_on_btn_temp_pressed"]

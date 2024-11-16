@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dn183dlmpfbcl"]
 
-[ext_resource type="Script" path="res://edge.gd" id="1_ax7mv"]
+[ext_resource type="Script" path="res://Graph/Edge.gd" id="1_ax7mv"]
 
 [node name="Edge" type="Line2D"]
 width = 2.0

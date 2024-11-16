@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://br8odp5wrtu6x"]
 
-[ext_resource type="Script" path="res://GNode.gd" id="1_d305o"]
+[ext_resource type="Script" path="res://Graph/GNode.gd" id="1_d305o"]
 [ext_resource type="Texture2D" uid="uid://ss67nlus1w8g" path="res://icon.svg" id="2_rfpmd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ncjd3"]

@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 	if (first_node != null and second_node == null):
 		points = [first_node.position, get_global_mouse_position()]
 
-func add_end_node(gnode: GNode):
+func add_end_node(gnode: GNode) -> void:
 	if (first_node == null):
 		first_node = gnode
 	elif (second_node == null):
@@ -23,7 +23,7 @@ func add_end_node(gnode: GNode):
 	else:
 		print_debug("no space in edge. Overwrite?")
 
-func add_ends(first: GNode, second: GNode):
+func add_ends(first: GNode, second: GNode) -> void:
 	first_node = first
 	second_node = second
 	enabled = true

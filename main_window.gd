@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 
 #region UI Buttons
 func _on_btn_temp_pressed() -> void:
-	graph.collect_nodes()
+	graph.load_graph_data()
 #endregion
 
 

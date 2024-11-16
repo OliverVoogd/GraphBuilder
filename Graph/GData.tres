@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GData" load_steps=2 format=3 uid="uid://dm0e8j2rrprne"]
+
+[ext_resource type="Script" path="res://Graph/GData.gd" id="1_evm83"]
+
+[resource]
+script = ExtResource("1_evm83")
+EdgeArray = Array[Array]([])
+NodeToIdxDict = {}
