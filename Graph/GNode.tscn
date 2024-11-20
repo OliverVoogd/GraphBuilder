@@ -1,16 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://br8odp5wrtu6x"]
+[gd_scene load_steps=5 format=3 uid="uid://br8odp5wrtu6x"]
 
 [ext_resource type="Script" path="res://Graph/GNode.gd" id="1_d305o"]
-[ext_resource type="Texture2D" uid="uid://ss67nlus1w8g" path="res://icon.svg" id="2_rfpmd"]
+[ext_resource type="Texture2D" uid="uid://2qkhty6xog4s" path="res://hexels/nodewhite.png" id="2_37t7y"]
+[ext_resource type="Texture2D" uid="uid://ccu0y65o8sa53" path="res://hexels/nodeoutline.png" id="3_mp7x8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ncjd3"]
-radius = 85.3756
+radius = 128.004
 
 [node name="GNode" type="Node2D"]
 script = ExtResource("1_d305o")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_rfpmd")
+[node name="Fill" type="Sprite2D" parent="."]
+texture = ExtResource("2_37t7y")
+
+[node name="Outline" type="Sprite2D" parent="."]
+texture = ExtResource("3_mp7x8")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2

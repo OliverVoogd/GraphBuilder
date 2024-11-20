@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BFS" load_steps=2 format=3 uid="uid://35np0u1xed7a"]
+
+[ext_resource type="Script" path="res://Graph/Algorithms/BFS.gd" id="1_eubao"]
+
+[resource]
+script = ExtResource("1_eubao")
+algorithm_name = "BFS"

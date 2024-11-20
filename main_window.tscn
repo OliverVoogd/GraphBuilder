@@ -1,14 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://jjvih8gbeux3"]
+[gd_scene load_steps=6 format=3 uid="uid://jjvih8gbeux3"]
 
 [ext_resource type="Script" path="res://main_window.gd" id="1_ktm31"]
 [ext_resource type="Script" path="res://Graph/Graph.gd" id="2_1mehc"]
-[ext_resource type="Resource" uid="uid://dm0e8j2rrprne" path="res://Graph/GData.tres" id="3_g8o3g"]
+[ext_resource type="PackedScene" uid="uid://br8odp5wrtu6x" path="res://Graph/GNode.tscn" id="4_skrk1"]
+[ext_resource type="Script" path="res://Graph/Algorithms/BFS.gd" id="4_wfiq6"]
+
+[sub_resource type="Resource" id="Resource_f6ipu"]
+script = ExtResource("4_wfiq6")
+algorithm_name = "BFS"
 
 [node name="MainWindow" type="Node2D"]
 script = ExtResource("1_ktm31")
+current_algorithm = SubResource("Resource_f6ipu")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.3, 0.3)
+zoom = Vector2(0.11, 0.11)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -27,8 +33,16 @@ offset_bottom = 76.0
 layout_mode = 2
 text = "TEMP"
 
-[node name="Graph" type="Node2D" parent="."]
+[node name="btnStepAlgorithm" type="Button" parent="CanvasLayer/Control/ModeGridContainer"]
+layout_mode = 2
+text = "Step"
+
+[node name="Graph" type="Node2D" parent="." node_paths=PackedStringArray("start_node")]
 script = ExtResource("2_1mehc")
-graph_data = ExtResource("3_g8o3g")
+start_node = NodePath("GNode")
+
+[node name="GNode" parent="Graph" instance=ExtResource("4_skrk1")]
+position = Vector2(161, 142)
 
 [connection signal="pressed" from="CanvasLayer/Control/ModeGridContainer/btnTemp" to="." method="_on_btn_temp_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/ModeGridContainer/btnStepAlgorithm" to="." method="_on_btn_step_algorithm_pressed"]

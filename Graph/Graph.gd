@@ -3,18 +3,36 @@ extends Node2D
 #region Resources
 @export var graphNode = preload("res://Graph/GNode.tscn")
 @export var edge = preload("res://Graph/Edge.tscn")
+#endregion
 
-@export var graph_data: GData
+@export var start_node: GNode
+var graph_data: GData = preload("res://Graph/GData.tres")
+
 #region Variables for Edges
 var stored_node_for_edge_add: GNode = null
 var edge_list: Array[Edge] = []
 #endregion
+
+#region Godot Methods
+func _ready() -> void:
+	connect_nodes_to_signals(start_node)
+#endregion
+
+#region Public Methods
+func get_graph_data() -> GData:
+	return graph_data
+#endregion
+
+#region Creating Nodes
 func add_new_node(mouse_position: Vector2) -> void:
 	var new_node = graphNode.instantiate()
 	new_node.position = get_local_mouse_position()
-	new_node.connect("edit_edge_button_clicked", recieve_gnode_edit_edge_button)
+	connect_nodes_to_signals(new_node)
 	add_child(new_node)
-	
+
+func connect_nodes_to_signals(node: GNode):
+	node.connect("edit_edge_button_clicked", recieve_gnode_edit_edge_button)
+#endregion
 #region Signals from GNodes
 func remove_GNode(node: GNode):
 	pass
@@ -46,14 +64,13 @@ func place_node(mousePosition: Vector2) -> void:
 
 #endregion
 
-#region Loading data into array
+#region GData structure
 func collect_nodes() -> Array[GNode]:
 	var graphNodes: Array[GNode] = []
 	
 	for child in get_children():
 		if (child is GNode):
 			graphNodes.push_back(child)
-		
 	return graphNodes
 
 func collect_edges() -> Array[Edge]:
@@ -61,7 +78,7 @@ func collect_edges() -> Array[Edge]:
 	
 func load_graph_data():
 	print_debug("load data")
-	var all_nodes = collect_nodes()
-	var number_edges = graph_data.create_edge_array(all_nodes, edge_list)
+	var number_edges = graph_data.create_edge_array(collect_nodes(), collect_edges())
+	graph_data.set_start_gnode(start_node)
 	print_debug("edge count: ", number_edges)
 #endregion
