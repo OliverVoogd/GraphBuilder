@@ -16,6 +16,13 @@ func get_number_of_nodes() -> int:
 	return node_array.size()
 func get_gnode_as_idx(node: GNode) -> int:
 	return node_to_idx_dict[node]
+func get_idx_as_gnode(node: int) -> GNode:
+	return node_array[node]
+func get_array_gnodes(nodes: Array[int]) -> Array[GNode]:
+	var res: Array[GNode] = []
+	for idx in nodes:
+		res.push_back(node_array[idx])
+	return res
 func is_gnodes_connected(node1: GNode, node2: GNode) -> bool:
 	return is_nodes_connected(node_to_idx_dict[node1], node_to_idx_dict[node2])
 func is_nodes_connected(node1_idx: int, node2_idx: int) -> bool:

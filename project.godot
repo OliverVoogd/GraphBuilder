@@ -15,6 +15,10 @@ run/main_scene="res://main_window.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/aspect="expand"
+
 [dotnet]
 
 project/assembly_name="GraphApp"
@@ -39,5 +43,6 @@ right_mouse={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=2
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

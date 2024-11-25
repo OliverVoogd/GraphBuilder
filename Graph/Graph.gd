@@ -8,31 +8,59 @@ extends Node2D
 @export var start_node: GNode
 var graph_data: GData = preload("res://Graph/GData.tres")
 
+@export var neutral_colour := Color.ANTIQUE_WHITE
+@export var current_colour := Color.DIM_GRAY
+@export var explored_colour := Color.DARK_RED
+@export var boundary_colour := Color.YELLOW_GREEN
+
 #region Variables for Edges
 var stored_node_for_edge_add: GNode = null
+var stored_edge_for_edge_add: Edge = null
 var edge_list: Array[Edge] = []
 #endregion
 
 #region Godot Methods
 func _ready() -> void:
-	connect_nodes_to_signals(start_node)
+	connect_gnode_to_signals(start_node)
 #endregion
 
 #region Public Methods
 func get_graph_data() -> GData:
 	return graph_data
+	
+func set_graph_display(display_data) -> void:
+	# display_data is [current, boundary, explored]
+	for node in display_data[1]:
+		node.change_colour(boundary_colour)
+	for node in display_data[2]:
+		node.change_colour(explored_colour)
+	display_data[0].change_colour(current_colour)
+func reset_node_colours(node_array: Array[GNode]) -> void:
+	for node in node_array:
+		node.change_colour(neutral_colour)
 #endregion
 
-#region Creating Nodes
+#region Creating Nodes & Edges
 func add_new_node(mouse_position: Vector2) -> void:
 	var new_node = graphNode.instantiate()
 	new_node.position = get_local_mouse_position()
-	connect_nodes_to_signals(new_node)
+	connect_gnode_to_signals(new_node)
 	add_child(new_node)
 
-func connect_nodes_to_signals(node: GNode):
+func connect_gnode_to_signals(node: GNode):
 	node.connect("edit_edge_button_clicked", recieve_gnode_edit_edge_button)
+
+func create_edge_between_gnodes(node1: GNode, node2: GNode):
+	var new_edge = edge.instantiate()
+	new_edge.add_ends(node1, node2)
+	edge_list.push_back(new_edge)
+	add_child(new_edge)
+func cancel_create_edge():
+	remove_child(stored_edge_for_edge_add)
+	stored_edge_for_edge_add = null
+	stored_node_for_edge_add = null
 #endregion
+
 #region Signals from GNodes
 func remove_GNode(node: GNode):
 	pass
@@ -40,27 +68,27 @@ func remove_GNode(node: GNode):
 func recieve_gnode_edit_edge_button(clicked_node: GNode):
 	if (stored_node_for_edge_add == null):
 		stored_node_for_edge_add = clicked_node
-		var new_edge = edge.instantiate()
-		new_edge.add_end_node(stored_node_for_edge_add)
-		edge_list.push_back(new_edge)
-		add_child(new_edge)
+		# create a temporary edge for visual clue
+		stored_edge_for_edge_add = edge.instantiate()
+		stored_edge_for_edge_add.add_mouse_tracking(stored_node_for_edge_add.position)
+		add_child(stored_edge_for_edge_add)
 	elif (stored_node_for_edge_add != null):
 		if (stored_node_for_edge_add == clicked_node):
 			print_debug("same node clicked")
 			return
-		var current_edge = edge_list.back()
-		current_edge.add_end_node(clicked_node)
-		stored_node_for_edge_add = null
+		create_edge_between_gnodes(stored_node_for_edge_add, clicked_node)
+		cancel_create_edge()
 #endregion
 
 #region Mouse Interactions
 func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("left_mouse")):
-		place_node(get_global_mouse_position())
+		if (stored_node_for_edge_add != null):
+			stored_node_for_edge_add = null
+			remove_child(stored_edge_for_edge_add)
+			return
+		add_new_node(get_global_mouse_position())
 
-
-func place_node(mousePosition: Vector2) -> void:
-	add_new_node(mousePosition)
 
 #endregion
 

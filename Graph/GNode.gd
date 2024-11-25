@@ -1,8 +1,10 @@
+@tool
 class_name GNode
 
 extends Node2D
 
-
+@export var radius: float = 300.0
+@export var colour: Color = Color.ANTIQUE_WHITE
 
 var mouse_offset: Vector2 = Vector2.ZERO
 var dragging := false
@@ -49,11 +51,15 @@ func handle_short_click():
 
 func edit_node():
 	print_debug("edit node")
+	
+func change_colour(new_colour: Color):
+	colour = new_colour
+	queue_redraw()
 #endregion
 
 #region Main Functions
 func _ready() -> void:
-	pass
+	$Area2D/CollisionShape2D.shape.set_radius(radius)
 
 func _process(delta: float) -> void:
 	handle_dragging(delta)
@@ -67,6 +73,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_released("left_mouse")):
 		dragging = false
 
+
+func _draw() -> void:
+	draw_circle(Vector2(0, 0), radius, colour)
 #endregion
 func mouse_clicked() -> void:
 	print_debug("mouse clicked")

@@ -28,7 +28,10 @@ func _on_btn_step_algorithm_pressed() -> void:
 #region Algorithm Functions
 func setup_algorithm():
 	current_algorithm.initialise_algorithm(graph.get_graph_data())
+	graph.reset_node_colours(graph.get_graph_data().node_array)
 func step_algorithm():
-	print_debug(current_algorithm.step())
+	current_algorithm.step()
+	var dsp = current_algorithm.get_display_data()
+	graph.set_graph_display(dsp)
 #endregion
 
