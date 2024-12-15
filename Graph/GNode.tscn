@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://Graph/GNode.gd" id="1_d305o"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ncjd3"]
-radius = 200.0
+radius = 16.0
 
 [node name="GNode" type="Node2D"]
 script = ExtResource("1_d305o")
-radius = 200.0
+radius = 16.0
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2

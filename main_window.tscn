@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://main_window.gd" id="1_ktm31"]
 [ext_resource type="Script" path="res://Graph/Graph.gd" id="2_1mehc"]
-[ext_resource type="PackedScene" uid="uid://d1n5d3w0ntk22" path="res://ui/options_menu.tscn" id="3_absgt"]
+[ext_resource type="PackedScene" uid="uid://d1n5d3w0ntk22" path="res://ui/options_menu/options_menu.tscn" id="3_absgt"]
 [ext_resource type="Theme" uid="uid://ds50bdi3l4kfk" path="res://ui/graphapptheme.tres" id="3_mt68v"]
 [ext_resource type="PackedScene" uid="uid://br8odp5wrtu6x" path="res://Graph/GNode.tscn" id="4_skrk1"]
 [ext_resource type="Script" path="res://Graph/Algorithms/BFS.gd" id="4_wfiq6"]
@@ -16,7 +16,6 @@ script = ExtResource("1_ktm31")
 current_algorithm = SubResource("Resource_f6ipu")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.11, 0.11)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

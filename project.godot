@@ -15,12 +15,6 @@ run/main_scene="res://main_window.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
-[display]
-
-window/size/viewport_width=960
-window/size/viewport_height=540
-window/stretch/mode="viewport"
-
 [dotnet]
 
 project/assembly_name="GraphApp"

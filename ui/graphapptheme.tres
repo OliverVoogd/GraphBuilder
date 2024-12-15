@@ -9,3 +9,6 @@ Label/font_sizes/font_size = 32
 Label/fonts/font = ExtResource("1_cxskw")
 OptionButton/font_sizes/font_size = 32
 OptionButton/fonts/font = ExtResource("1_cxskw")
+TabBar/fonts/font = ExtResource("1_cxskw")
+Tree/fonts/font = ExtResource("1_cxskw")
+Tree/fonts/title_button_font = ExtResource("1_cxskw")
