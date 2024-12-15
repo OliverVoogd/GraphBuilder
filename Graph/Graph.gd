@@ -8,10 +8,13 @@ extends Node2D
 @export var start_node: GNode
 var graph_data: GData = preload("res://Graph/GData.tres")
 
-@export var neutral_colour := Color.ANTIQUE_WHITE
-@export var current_colour := Color.DIM_GRAY
-@export var explored_colour := Color.DARK_RED
-@export var boundary_colour := Color.YELLOW_GREEN
+#region Variables for Options Menu
+@export var options_menu: OptionsMenu
+var neutral_colour_rect: ColorRect
+var current_colour_rect: ColorRect
+var boundary_colour_rect: ColorRect
+var explored_colour_rect: ColorRect
+#endregion
 
 #region Variables for Edges
 var stored_node_for_edge_add: GNode = null
@@ -22,6 +25,8 @@ var edge_list: Array[Edge] = []
 #region Godot Methods
 func _ready() -> void:
 	connect_gnode_to_signals(start_node)
+	
+	setup_colour_rects()
 #endregion
 
 #region Public Methods
@@ -31,13 +36,13 @@ func get_graph_data() -> GData:
 func set_graph_display(display_data) -> void:
 	# display_data is [current, boundary, explored]
 	for node in display_data[1]:
-		node.change_colour(boundary_colour)
+		node.change_colour(boundary_colour_rect.color)
 	for node in display_data[2]:
-		node.change_colour(explored_colour)
-	display_data[0].change_colour(current_colour)
+		node.change_colour(explored_colour_rect.color)
+	display_data[0].change_colour(current_colour_rect.color)
 func reset_node_colours(node_array: Array[GNode]) -> void:
 	for node in node_array:
-		node.change_colour(neutral_colour)
+		node.change_colour(neutral_colour_rect.color)
 #endregion
 
 #region Creating Nodes & Edges
@@ -109,4 +114,12 @@ func load_graph_data():
 	var number_edges = graph_data.create_edge_array(collect_nodes(), collect_edges())
 	graph_data.set_start_gnode(start_node)
 	print_debug("edge count: ", number_edges)
+#endregion
+
+#region Colours
+func setup_colour_rects():
+	neutral_colour_rect = options_menu.getNeutralColorRect()
+	current_colour_rect = options_menu.getCurrentColorRect()
+	boundary_colour_rect= options_menu.getBoundaryColorRect()
+	explored_colour_rect = options_menu.getExploredColorRect()
 #endregion

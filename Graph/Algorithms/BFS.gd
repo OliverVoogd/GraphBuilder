@@ -1,20 +1,16 @@
-extends Resource
+extends Algorithm
 
 class_name BFS
 # All algorithms represent nodes as simply ints, corresponding to the nodes stored in
 # a GData object. GData objects can be passed between different algorithms, which can produce
 # different results
-
-@export var algorithm_name = "BFS"
-var graph_data: GData = null
-
-# reimpliment as queues
-var explored: Array[int] = []
-var boundary: Array[int] = []
 var stored_current_node: int = -1
-var algorithm_finished: bool = false
-#region Public Methods
-func reset():
+
+func _init() -> void:
+	algorithm_name = BFS
+
+#region Inherited Methods
+func reset() -> void:
 	explored.clear()
 	boundary.clear()
 	
@@ -22,11 +18,11 @@ func reset():
 	algorithm_finished = false
 	stored_current_node = -1
 
-func initialise_algorithm(data: GData):
+func initialise_algorithm(data: GData) -> void:
 	graph_data = data
 	reset()
 	
-func get_display_data():
+func get_display_data() -> Array:
 	# return the current node, boundary nodes and explored nodes for visualisation
 	# all should be lists
 	return [
@@ -34,8 +30,6 @@ func get_display_data():
 		graph_data.get_array_gnodes(boundary), 
 		graph_data.get_array_gnodes(explored)]
 
-# steps through the algorithm
-# TEMP just return the explored nodes
 func step() -> Array[int]:
 	var current_node = get_next_node()
 	stored_current_node = current_node

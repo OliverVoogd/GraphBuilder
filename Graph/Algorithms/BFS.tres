@@ -3,5 +3,6 @@
 [ext_resource type="Script" path="res://Graph/Algorithms/BFS.gd" id="1_eubao"]
 
 [resource]
+resource_name = "BFS"
 script = ExtResource("1_eubao")
 algorithm_name = "BFS"
