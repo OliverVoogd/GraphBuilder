@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ds50bdi3l4kfk"]
+
+[ext_resource type="FontFile" uid="uid://ctpje3ghynugi" path="res://ui/ARCADECLASSIC.TTF" id="1_cxskw"]
+
+[resource]
+default_font = ExtResource("1_cxskw")
+default_font_size = 32
