@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="DFS" load_steps=2 format=3 uid="uid://bvslibhoqmpps"]
+
+[ext_resource type="Script" path="res://Graph/Algorithms/DFS.gd" id="1_ffx5o"]
+
+[resource]
+resource_name = "DFS"
+script = ExtResource("1_ffx5o")
+algorithm_name = "DFS"

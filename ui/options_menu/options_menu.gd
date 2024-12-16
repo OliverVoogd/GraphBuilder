@@ -20,9 +20,8 @@ func _ready() -> void:
 	for rect in color_rects:
 		rect.gui_input.connect(on_color_rect_clicked.bind(rect))
 
-func _on_algorithm_option_item_selected(index: int) -> void:
-	#algorithm_changed.emit(algorithms[index])
-	pass
+func get_current_algorithm() -> Algorithm:
+	return algorithms[algorithm_option_button.selected]
 
 #region Color Rects
 func on_color_rect_clicked(event: InputEvent, rect: ColorRect):

@@ -1,13 +1,13 @@
 extends Algorithm
 
-class_name BFS
+class_name DFS
 # All algorithms represent nodes as simply ints, corresponding to the nodes stored in
 # a GData object. GData objects can be passed between different algorithms, which can produce
 # different results
 var stored_current_node: int = -1
 
 func _init() -> void:
-	algorithm_name = BFS
+	algorithm_name = DFS
 
 #region Inherited Methods
 func reset() -> void:
@@ -32,10 +32,11 @@ func get_display_data() -> Array:
 
 func step() -> Array[int]:
 	var current_node = get_next_node()
+	stored_current_node = current_node
 	if (algorithm_finished):
 		print_debug("algo finished")
 		return explored
-	stored_current_node = current_node
+	
 	if (current_node in explored):
 		return step()
 	
@@ -50,4 +51,4 @@ func get_next_node() -> int:
 	if (boundary.is_empty()):
 		algorithm_finished = true
 		return -1
-	return boundary.pop_front()
+	return boundary.pop_back()

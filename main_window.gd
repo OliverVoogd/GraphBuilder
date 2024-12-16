@@ -3,10 +3,7 @@ extends Node2D
 
 @onready var graph := $Graph
 @onready var camera := $Camera2D
-
-#region Algoritms
-@export var current_algorithm: BFS
-#endregion
+@onready var options := $CanvasLayer/OptionsMenu
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,11 +24,11 @@ func _on_btn_step_algorithm_pressed() -> void:
 
 #region Algorithm Functions
 func setup_algorithm():
-	current_algorithm.initialise_algorithm(graph.get_graph_data())
+	options.get_current_algorithm().initialise_algorithm(graph.get_graph_data())
 	graph.reset_node_colours(graph.get_graph_data().node_array)
 func step_algorithm():
-	current_algorithm.step()
-	var dsp = current_algorithm.get_display_data()
+	options.get_current_algorithm().step()
+	var dsp = options.get_current_algorithm().get_display_data()
 	graph.set_graph_display(dsp)
 #endregion
 
