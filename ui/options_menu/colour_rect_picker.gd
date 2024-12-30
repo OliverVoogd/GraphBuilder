@@ -2,6 +2,8 @@ extends ColorPicker
 
 var currentRect: ColorRect
 
+signal colour_picker_changed
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	color_changed.connect(on_colour_changed)
@@ -10,6 +12,7 @@ func _ready() -> void:
 func on_colour_changed(color: Color):
 	if currentRect:
 		currentRect.color = color
+		colour_picker_changed.emit()
 
 func _process(delta: float) -> void:
 	if visible and not Rect2(Vector2(), size).has_point(get_local_mouse_position()):

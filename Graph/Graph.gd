@@ -1,5 +1,9 @@
 extends Node2D
 
+var graph_changed_since_last_step := true
+
+var current_algo: Algorithm
+
 #region Resources
 @export var graphNode = preload("res://Graph/GNode.tscn")
 @export var edge = preload("res://Graph/Edge.tscn")
@@ -8,12 +12,15 @@ extends Node2D
 @export var start_node: GNode
 var graph_data: GData = preload("res://Graph/GData.tres")
 
+#region Signals
+signal graph_changed
+#endregion
 #region Variables for Options Menu
 @export var options_menu: OptionsMenu
-var neutral_colour_rect: ColorRect
-var current_colour_rect: ColorRect
+var neutral_colour_rect : ColorRect
+var current_colour_rect : ColorRect
 var boundary_colour_rect: ColorRect
-var explored_colour_rect: ColorRect
+var explored_colour_rect: ColorRect	
 #endregion
 
 #region Variables for Edges
@@ -26,8 +33,42 @@ var edge_list: Array[Edge] = []
 func _ready() -> void:
 	connect_gnode_to_signals(start_node)
 	
-	setup_colour_rects()
+	options_menu.colours_changed.connect(on_options_colours_changed)
+	on_options_colours_changed()
 #endregion
+
+#region UI Buttons & Options Menu
+func _on_btn_step_algorithm_pressed() -> void:
+	if (graph_changed_since_last_step):	
+		load_graph_data()
+		setup_algorithm()
+	step_algorithm()
+	
+	graph_changed_since_last_step = false
+	
+func on_options_colours_changed() -> void:
+	neutral_colour_rect  = options_menu.getNeutralColorRect()
+	current_colour_rect  = options_menu.getCurrentColorRect()
+	boundary_colour_rect = options_menu.getBoundaryColorRect()
+	explored_colour_rect = options_menu.getExploredColorRect()
+#endregion
+
+#region Algorithm & Graph Management
+func setup_algorithm():
+	current_algo = options_menu.get_current_algorithm()
+	
+	current_algo.initialise_algorithm(graph_data)
+	reset_node_colours(graph_data.node_array)
+func step_algorithm():
+	current_algo.step()
+	var dsp = current_algo.get_display_data()
+	set_graph_display(dsp)
+
+func graph_has_changed() -> void:
+	graph_changed_since_last_step = true
+	graph_changed.emit()
+#endregion
+
 
 #region Public Methods
 func get_graph_data() -> GData:
@@ -83,11 +124,13 @@ func recieve_gnode_edit_edge_button(clicked_node: GNode):
 			return
 		create_edge_between_gnodes(stored_node_for_edge_add, clicked_node)
 		cancel_create_edge()
+		graph_has_changed()
 #endregion
 
 #region Mouse Interactions
 func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("left_mouse")):
+		graph_has_changed()
 		if (stored_node_for_edge_add != null):
 			stored_node_for_edge_add = null
 			remove_child(stored_edge_for_edge_add)
@@ -96,7 +139,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 #endregion
-
 #region GData structure
 func collect_nodes() -> Array[GNode]:
 	var graphNodes: Array[GNode] = []
@@ -114,12 +156,4 @@ func load_graph_data():
 	var number_edges = graph_data.create_edge_array(collect_nodes(), collect_edges())
 	graph_data.set_start_gnode(start_node)
 	print_debug("edge count: ", number_edges)
-#endregion
-
-#region Colours
-func setup_colour_rects():
-	neutral_colour_rect = options_menu.getNeutralColorRect()
-	current_colour_rect = options_menu.getCurrentColorRect()
-	boundary_colour_rect= options_menu.getBoundaryColorRect()
-	explored_colour_rect = options_menu.getExploredColorRect()
 #endregion

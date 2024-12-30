@@ -93,7 +93,7 @@ allow_reselect = true
 popup/item_0/text = "TEST"
 popup/item_0/id = 0
 
-[node name="ColorPicker" type="ColorPicker" parent="."]
+[node name="ColourPicker" type="ColorPicker" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 1

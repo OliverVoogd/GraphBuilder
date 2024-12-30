@@ -1,4 +1,3 @@
-@tool
 class_name GNode
 
 extends Node2D

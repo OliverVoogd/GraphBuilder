@@ -1,13 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://jjvih8gbeux3"]
+[gd_scene load_steps=5 format=3 uid="uid://jjvih8gbeux3"]
 
-[ext_resource type="Script" path="res://main_window.gd" id="1_ktm31"]
 [ext_resource type="Script" path="res://Graph/Graph.gd" id="2_1mehc"]
 [ext_resource type="PackedScene" uid="uid://d1n5d3w0ntk22" path="res://ui/options_menu/options_menu.tscn" id="3_absgt"]
 [ext_resource type="Theme" uid="uid://ds50bdi3l4kfk" path="res://ui/default_theme.tres" id="3_mt68v"]
 [ext_resource type="PackedScene" uid="uid://br8odp5wrtu6x" path="res://Graph/GNode.tscn" id="4_skrk1"]
 
 [node name="MainWindow" type="Node2D"]
-script = ExtResource("1_ktm31")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -24,11 +22,6 @@ offset_top = 10.0
 offset_right = 60.0
 offset_bottom = 76.0
 
-[node name="btnTemp" type="Button" parent="CanvasLayer/Control/ModeGridContainer"]
-layout_mode = 2
-theme = ExtResource("3_mt68v")
-text = "TEMP"
-
 [node name="btnStepAlgorithm" type="Button" parent="CanvasLayer/Control/ModeGridContainer"]
 layout_mode = 2
 theme = ExtResource("3_mt68v")
@@ -44,5 +37,4 @@ options_menu = NodePath("../CanvasLayer/OptionsMenu")
 [node name="GNode" parent="Graph" instance=ExtResource("4_skrk1")]
 position = Vector2(161, 142)
 
-[connection signal="pressed" from="CanvasLayer/Control/ModeGridContainer/btnTemp" to="." method="_on_btn_temp_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/ModeGridContainer/btnStepAlgorithm" to="." method="_on_btn_step_algorithm_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/ModeGridContainer/btnStepAlgorithm" to="Graph" method="_on_btn_step_algorithm_pressed"]
